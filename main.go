@@ -56,17 +56,20 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	x := 90
-	y := 120 + g.Count
-
+	haikei := color.RGBA{
+		R: 0,
+		G: 150,
+		B: 150,
+		A: 255,
+	}
+	screen.Fill(haikei)
 	iro := color.RGBA{
-		R: 255,
+		R: 1,
 		G: 0,
-		B: uint8(4 * g.Count),
-		A: 100,
+		B: 0,
+		A: 255,
 	}
 
-	text.Draw(screen, g.Msg, mPlus1pRegular_ttf, x, y, iro)
 	for i, k := range g.keys {
 		posy := (i + 1) * 20
 		ka := k.String()
