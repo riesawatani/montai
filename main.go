@@ -6,6 +6,7 @@ import (
 
 	"github.com/hajimehoshi/ebiten/examples/resources/fonts"
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text"
 	"github.com/riesawatani/montai/niku"
 	"golang.org/x/image/font"
@@ -36,9 +37,11 @@ type Game struct {
 	Msg   string
 	Count int
 	niku  niku.Niku
+	keys  []ebiten.Key
 }
 
 func (g *Game) Update() error {
+	g.keys = inpututil.AppendPressedKeys(g.keys[:0])
 	g.Count = g.Count + 1
 	if g.Count < 60 {
 		return nil
@@ -64,6 +67,12 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 
 	text.Draw(screen, g.Msg, mPlus1pRegular_ttf, x, y, iro)
+	for i, k := range g.keys {
+		posy := (i + 1) * 20
+		ka := k.String()
+		text.Draw(screen, ka, mPlus1pRegular_ttf, 0, posy, iro)
+	}
+
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
