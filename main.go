@@ -69,11 +69,29 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		B: 0,
 		A: 255,
 	}
+	seikainoiro := color.RGBA{
+		R: 255,
+		G: 0,
+		B: 0,
+		A: 255,
+	}
+	fuseikainoiro := color.RGBA{
+		R: 0,
+		G: 0,
+		B: 225,
+		A: 255,
+	}
+	text.Draw(screen, "3 + 5 = ", mPlus1pRegular_ttf, 0, 20, iro)
+	if len(g.keys) > 0 {
+		answer := g.keys[0].String()
+		text.Draw(screen, answer, mPlus1pRegular_ttf, 90, 20, iro)
+		if answer == "Digit8" {
+			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*2, seikainoiro)
 
-	for i, k := range g.keys {
-		posy := (i + 1) * 20
-		ka := k.String()
-		text.Draw(screen, ka, mPlus1pRegular_ttf, 0, posy, iro)
+		} else {
+			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*2, fuseikainoiro)
+
+		}
 	}
 
 }
