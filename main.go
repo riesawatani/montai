@@ -10,6 +10,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text"
 	"github.com/riesawatani/montai/niku"
+	"github.com/riesawatani/montai/tyoko"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 )
@@ -35,10 +36,11 @@ func init() {
 }
 
 type Game struct {
-	Msg   string
-	Count int
-	niku  niku.Niku
-	keys  []ebiten.Key
+	Msg          string
+	Count        int
+	niku         niku.Niku
+	keys         []ebiten.Key
+	Questionlist []tyoko.Tyoko
 }
 
 func (g *Game) Update() error {
@@ -123,7 +125,8 @@ func main() {
 	log.Println(ushi)
 
 	game := &Game{
-		niku: ushi,
+		niku:         ushi,
+		Questionlist: tyoko.Xlist,
 	}
 
 	if err := ebiten.RunGame(game); err != nil {
