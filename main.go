@@ -36,11 +36,12 @@ func init() {
 }
 
 type Game struct {
-	Msg          string
-	Count        int
-	niku         niku.Niku
-	keys         []ebiten.Key
-	Questionlist []tyoko.Tyoko
+	Msg            string
+	Count          int
+	niku           niku.Niku
+	keys           []ebiten.Key
+	Questionlist   []tyoko.Tyoko
+	Questionnunvar uint
 }
 
 func (g *Game) Update() error {
@@ -84,17 +85,12 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		B: 225,
 		A: 255,
 	}
-	text.Draw(screen, "3 + 5 = ", mPlus1pRegular_ttf, 0, 20, iro)
+	t := g.Questionlist[g.Questionnunvar]
+	q := t.Question
+	a := t.Answer
+	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
 	if len(g.keys) > 0 {
 		answer := g.keys[0].String()
-
-		if answer == "Digit8" {
-			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*2, seikainoiro)
-
-		} else {
-			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*2, fuseikainoiro)
-
-		}
 
 		st := answer
 		if strings.HasPrefix(answer, "Digit") {
@@ -102,6 +98,13 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		}
 		text.Draw(screen, st, mPlus1pRegular_ttf, 90, 20, iro)
 
+		if st == a {
+			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*2, seikainoiro)
+
+		} else {
+			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*2, fuseikainoiro)
+
+		}
 	}
 
 }
