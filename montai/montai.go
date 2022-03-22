@@ -6,8 +6,4 @@ type Montai struct {
 	Sentakusi string
 }
 
-var MonaiList = []Montai{
-	{
-		Kanji: "",
-	}
-}
+var MonaiList = []Montai{}

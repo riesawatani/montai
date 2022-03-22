@@ -85,6 +85,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		B: 225,
 		A: 255,
 	}
+	k := len(g.Questionlist)
+	if g.Questionnunvar == uint(k) {
+		return
+	}
 	t := g.Questionlist[g.Questionnunvar]
 	q := t.Question
 	a := t.Answer

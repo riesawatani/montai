@@ -15,7 +15,7 @@ var Xlist = []Tyoko{
 		Answer:   "8",
 	},
 	{
-		Question: "40 - 32 =",
-		Answer:   "8",
+		Question: "4 - 3 =",
+		Answer:   "1",
 	},
 }
