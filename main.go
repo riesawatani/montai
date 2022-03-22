@@ -87,6 +87,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 	k := len(g.Questionlist)
 	if g.Questionnunvar == uint(k) {
+		text.Draw(screen, "おめでとうございます", mPlus1pRegular_ttf, 20*2, 20*6, seikainoiro)
 		return
 	}
 	t := g.Questionlist[g.Questionnunvar]
