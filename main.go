@@ -42,6 +42,7 @@ type Game struct {
 	keys           []ebiten.Key
 	Questionlist   []tyoko.Tyoko
 	Questionnunvar uint
+	seikaisita     bool
 }
 
 func (g *Game) Update() error {
@@ -87,7 +88,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 	k := len(g.Questionlist)
 	if g.Questionnunvar == uint(k) {
-		text.Draw(screen, "おめでとうございます", mPlus1pRegular_ttf, 20*2, 20*6, seikainoiro)
+		text.Draw(screen, "おめでとうございます", mPlus1pRegular_ttf, 20*2, 20*6, iro)
 		return
 	}
 	t := g.Questionlist[g.Questionnunvar]
@@ -96,7 +97,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
 	if len(g.keys) > 0 {
 		answer := g.keys[0].String()
-
+		if answer == "Space" {
+			g.seikaisita = false
+			return
+		}
 		st := answer
 		if strings.HasPrefix(answer, "Digit") {
 			st = answer[5:]
@@ -106,6 +110,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		if st == a {
 			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*2, seikainoiro)
 			g.Questionnunvar = g.Questionnunvar + 1
+			g.seikaisita = true
 		} else {
 			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*2, fuseikainoiro)
 
