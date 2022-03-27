@@ -104,14 +104,14 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
 
-		text.Draw(screen, st, mPlus1pRegular_ttf, 90, 20, kotaenoiro)
+		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 40, kotaenoiro)
 
 		if st == a {
-			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*2, seikainoiro)
+			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*3, seikainoiro)
 			g.Questionnunvar = g.Questionnunvar + 1
 			g.seikaisita = true
 		} else {
-			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*2, fuseikainoiro)
+			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*3, fuseikainoiro)
 
 		}
 	}
