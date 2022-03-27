@@ -107,7 +107,6 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 40, kotaenoiro)
 
 		if st == a {
-			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*3, seikainoiro)
 			g.Questionnunvar = g.Questionnunvar + 1
 			g.seikaisita = true
 		} else {
