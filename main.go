@@ -86,9 +86,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		B: 225,
 		A: 255,
 	}
+	kotaenoiro := color.RGBA{
+		R: 255,
+		G: 255,
+		B: 255,
+		A: 255,
+	}
 	k := len(g.Questionlist)
 	if g.Questionnunvar == uint(k) {
-		text.Draw(screen, "おめでとうございます!!", mPlus1pRegular_ttf, 40, 20*6, iro)
+		text.Draw(screen, "おめでとうございます！！", mPlus1pRegular_ttf, 20, 120, seikainoiro)
 		return
 	}
 	t := g.Questionlist[g.Questionnunvar]
@@ -96,16 +102,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	a := t.Answer
 	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
 	if len(g.keys) > 0 {
-		answer := g.keys[0].String()
-		if answer == "Space" {
-			g.seikaisita = false
-			return
-		}
-		st := answer
-		if strings.HasPrefix(answer, "Digit") {
-			st = answer[5:]
-		}
-		text.Draw(screen, st, mPlus1pRegular_ttf, 90, 20, iro)
+		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
+
+		text.Draw(screen, st, mPlus1pRegular_ttf, 90, 20, kotaenoiro)
 
 		if st == a {
 			text.Draw(screen, "正解", mPlus1pRegular_ttf, 0, 20*2, seikainoiro)
