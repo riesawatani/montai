@@ -88,7 +88,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 	k := len(g.Questionlist)
 	if g.Questionnunvar == uint(k) {
-		text.Draw(screen, "おめでとうございます", mPlus1pRegular_ttf, 20*2, 20*6, iro)
+		text.Draw(screen, "おめでとうございます!!", mPlus1pRegular_ttf, 40, 20*6, iro)
 		return
 	}
 	t := g.Questionlist[g.Questionnunvar]
@@ -117,32 +117,4 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		}
 	}
 
-}
-
-func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 320, 240
-}
-
-func main() {
-	ebiten.SetWindowSize(640, 480)
-	ebiten.SetWindowTitle("Hello, World!")
-
-	buta := niku.Niku{
-		Neme: "buta",
-	}
-	log.Println(buta)
-
-	ushi := niku.Niku{
-		Neme: "ushi",
-	}
-	log.Println(ushi)
-
-	game := &Game{
-		niku:         ushi,
-		Questionlist: tyoko.Xlist,
-	}
-
-	if err := ebiten.RunGame(game); err != nil {
-		log.Fatal(err)
-	}
 }
