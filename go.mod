@@ -3,6 +3,16 @@ module github.com/riesawatani/montai
 go 1.17
 
 require (
+	github.com/aws/aws-sdk-go-v2 v1.16.1 // indirect
+	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.1 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.8 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.2 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.1.2 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.2 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.13.2 // indirect
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.2 // indirect
+	github.com/aws/smithy-go v1.11.2 // indirect
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20210727001814-0db043d8d5be // indirect
 	github.com/hajimehoshi/ebiten v1.12.12 // indirect
 	github.com/hajimehoshi/ebiten/v2 v2.2.5 // indirect
