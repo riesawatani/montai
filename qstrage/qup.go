@@ -3,7 +3,10 @@ package qstrage
 import (
 	"context"
 	"io"
+	"io/ioutil"
 	"log"
+	"os"
+	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -36,4 +39,23 @@ func writefile(ctx context.Context, s3path string, content io.Reader) error {
 		return err
 	}
 	return nil
+}
+
+func readjson(filepath string) (string, error) {
+	log.Println("Loasing json:", filepath)
+	bs, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		log.Fatalf("Failed to open file: %s:%v\n", filepath, err)
+	}
+	return string(bs), nil
+}
+
+func main() {
+	filepath := os.Args[1]
+	jstr, err := readjson(filepath)
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+	ctx := context.Background()
+	writefile(ctx, filepath, strings.NewReader(jstr))
 }
