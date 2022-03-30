@@ -47,3 +47,20 @@ func ReadJson(filepath string) (string, error) {
 	}
 	return string(bs), nil
 }
+
+func ReadFile(ctx context.Context, s3path string) (*io.ReadCloser, error) {
+	log.Printf("Reading S3 file: %s/%s", Bucketname, s3path)
+	client, err := GetClient(ctx)
+	if err != nil {
+		return nil, err
+	}
+	obj := &s3.GetObjectInput{
+		Bucket: aws.String(Bucketname),
+		Key:    aws.String(s3path),
+	}
+	out, err := client.GetObject(ctx, obj)
+	if err != nil {
+		return nil, err
+	}
+	return &out.Body, nil
+}
