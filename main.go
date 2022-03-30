@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"image/color"
 	"log"
 	"strings"
@@ -10,7 +11,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text"
 	"github.com/riesawatani/montai/niku"
-	"github.com/riesawatani/montai/tyoko"
+	"github.com/riesawatani/montai/qstrage"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 )
@@ -35,12 +36,17 @@ func init() {
 	mPlus1pRegular_ttf = ft
 }
 
+type QAP struct {
+	Question string
+	Answer   string
+}
+
 type Game struct {
 	Msg            string
 	Count          int
 	niku           niku.Niku
 	keys           []ebiten.Key
-	Questionlist   []tyoko.Tyoko
+	Questionlist   []QAP
 	Questionnunvar uint
 	seikaisita     bool
 }
@@ -122,6 +128,15 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 }
 
 func main() {
+	data, err := qstrage.ReadJson("cmd/upload/rie.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	var list []QAP
+	if err := json.Unmarshal([]byte(data), &list); err != nil {
+		log.Fatal(err)
+	}
+
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Hello, World!")
 
@@ -137,7 +152,7 @@ func main() {
 
 	game := &Game{
 		niku:         ushi,
-		Questionlist: tyoko.Xlist,
+		Questionlist: list,
 	}
 
 	if err := ebiten.RunGame(game); err != nil {
