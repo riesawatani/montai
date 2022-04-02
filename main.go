@@ -36,9 +36,15 @@ func init() {
 	mPlus1pRegular_ttf = ft
 }
 
+type MyColor struct {
+	R uint8
+	G uint8
+	B uint8
+}
 type QAP struct {
 	Question string
 	Answer   string
+	Color    MyColor
 }
 
 type Game struct {
@@ -68,12 +74,11 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	haikei := color.RGBA{
-		R: 150,
+		R: 250,
 		G: 150,
-		B: 150,
+		B: 100,
 		A: 255,
 	}
-	screen.Fill(haikei)
 	iro := color.RGBA{
 		R: 0,
 		G: 0,
@@ -100,12 +105,19 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 	k := len(g.Questionlist)
 	if g.Questionnunvar == uint(k) {
+		screen.Fill(haikei)
 		text.Draw(screen, "おめでとうございます！！", mPlus1pRegular_ttf, 20, 120, seikainoiro)
 		return
 	}
 	t := g.Questionlist[g.Questionnunvar]
 	q := t.Question
 	a := t.Answer
+	screen.Fill(color.RGBA{
+		R: t.Color.R,
+		G: t.Color.G,
+		B: t.Color.B,
+		A: 255,
+	})
 	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
