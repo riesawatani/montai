@@ -42,9 +42,10 @@ type MyColor struct {
 	B uint8
 }
 type QAP struct {
-	Question string
-	Answer   string
-	Color    MyColor
+	Question  string
+	Answer    string
+	Color     MyColor
+	Question2 string
 }
 
 type Game struct {
@@ -60,16 +61,9 @@ type Game struct {
 func (g *Game) Update() error {
 	g.keys = inpututil.AppendPressedKeys(g.keys[:0])
 	g.Count = g.Count + 1
-	if g.Count < 60 {
-		return nil
-	}
-	g.Count = 0
-	if len(g.Msg) > 0 {
-		g.Msg = ""
-	} else {
-		g.Msg = g.niku.Taberu()
-	}
+
 	return nil
+
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
@@ -119,20 +113,19 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		A: 255,
 	})
 	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
+	text.Draw(screen, t.Question2, mPlus1pRegular_ttf, 0, 40, iro)
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
 
-		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 40, kotaenoiro)
+		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 60, kotaenoiro)
 
 		if st == a {
 			g.Questionnunvar = g.Questionnunvar + 1
 			g.seikaisita = true
 		} else {
-			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*3, fuseikainoiro)
-
+			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*4, fuseikainoiro)
 		}
 	}
-
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
