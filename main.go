@@ -56,12 +56,12 @@ type Game struct {
 	Questionlist   []QAP
 	Questionnunvar uint
 	seikaisita     bool
+	IsMachi        bool
 }
 
 func (g *Game) Update() error {
 	g.keys = inpututil.AppendPressedKeys(g.keys[:0])
 	g.Count = g.Count + 1
-
 	return nil
 
 }
@@ -117,14 +117,22 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	text.Draw(screen, q2, mPlus1pRegular_ttf, 0, 40, iro)
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
-
+		g.IsMachi = true
 		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 60, kotaenoiro)
+		if g.IsMachi == true {
+			if g.Count == 1 {
+				if st == a {
+					g.Questionnunvar = g.Questionnunvar + 1
+					g.seikaisita = true
+				} else {
+					text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 90, fuseikainoiro)
+					g.Questionnunvar = g.Questionnunvar + 9
+					if st == a {
+						g.Questionnunvar = g.Questionnunvar - 9
+					}
+				}
+			}
 
-		if st == a {
-			g.Questionnunvar = g.Questionnunvar + 1
-			g.seikaisita = true
-		} else {
-			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 90, fuseikainoiro)
 		}
 	}
 }
