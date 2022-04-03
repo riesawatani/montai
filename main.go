@@ -46,6 +46,7 @@ type QAP struct {
 	Answer    string
 	Color     MyColor
 	Question2 string
+	Hinto     string
 }
 
 type Game struct {
@@ -123,7 +124,6 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			g.seikaisita = true
 		} else {
 			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 90, fuseikainoiro)
-
 		}
 	}
 }
