@@ -106,6 +106,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	t := g.Questionlist[g.Questionnunvar]
 	q := t.Question
 	a := t.Answer
+	q2 := t.Question2
 	screen.Fill(color.RGBA{
 		R: t.Color.R,
 		G: t.Color.G,
@@ -113,7 +114,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		A: 255,
 	})
 	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
-	text.Draw(screen, t.Question2, mPlus1pRegular_ttf, 0, 40, iro)
+	text.Draw(screen, q2, mPlus1pRegular_ttf, 0, 40, iro)
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
 
@@ -123,7 +124,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			g.Questionnunvar = g.Questionnunvar + 1
 			g.seikaisita = true
 		} else {
-			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 20*4, fuseikainoiro)
+			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 90, fuseikainoiro)
 		}
 	}
 }
