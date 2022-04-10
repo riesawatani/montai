@@ -49,6 +49,8 @@ type QAP struct {
 	Hinto     string
 	Question3 string
 	Question4 string
+	Answer2   string
+	Answer3   string
 }
 
 type Game struct {
@@ -70,24 +72,14 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	haikei := color.RGBA{
-		R: 250,
-		G: 150,
-		B: 100,
-		A: 255,
-	}
+
 	iro := color.RGBA{
 		R: 0,
 		G: 0,
 		B: 0,
 		A: 255,
 	}
-	seikainoiro := color.RGBA{
-		R: 255,
-		G: 0,
-		B: 0,
-		A: 255,
-	}
+
 	fuseikainoiro := color.RGBA{
 		R: 0,
 		G: 0,
@@ -100,19 +92,14 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		B: 255,
 		A: 255,
 	}
-	k := len(g.Questionlist)
-	if g.Questionnunvar == uint(k) {
-		screen.Fill(haikei)
-		text.Draw(screen, "おめでとうございます！！", mPlus1pRegular_ttf, 20, 120, seikainoiro)
-
-		return
-	}
 	t := g.Questionlist[g.Questionnunvar]
 	q := t.Question
 	a := t.Answer
 	q2 := t.Question2
 	q3 := t.Question3
 	q4 := t.Question4
+	a2 := t.Answer2
+	a3 := t.Answer3
 	screen.Fill(color.RGBA{
 		R: t.Color.R,
 		G: t.Color.G,
@@ -120,17 +107,24 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		A: 255,
 	})
 	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
-	text.Draw(screen, q2, mPlus1pRegular_ttf, 0, 40, iro)
-	text.Draw(screen, q3, mPlus1pRegular_ttf, 0, 60, iro)
-	text.Draw(screen, q4, mPlus1pRegular_ttf, 0, 80, iro)
+	text.Draw(screen, q2, mPlus1pRegular_ttf, 0, 50, iro)
+	text.Draw(screen, q3, mPlus1pRegular_ttf, 0, 80, iro)
+	text.Draw(screen, q4, mPlus1pRegular_ttf, 0, 100, iro)
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
-		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 100, kotaenoiro)
+		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 160, kotaenoiro)
 		if st == a {
-			g.Questionnunvar = g.Questionnunvar + 1
 			g.seikaisita = true
+			g.Questionnunvar = g.Questionnunvar + 1
+
 		} else {
-			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 130, fuseikainoiro)
+			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 190, fuseikainoiro)
+		}
+		if st == a2 {
+			g.Questionnunvar = 0
+		}
+		if st == a3 {
+			g.Questionnunvar = 12
 		}
 	}
 }
