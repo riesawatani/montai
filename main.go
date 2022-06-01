@@ -51,6 +51,13 @@ type QAP struct {
 	Question4 string
 	Answer2   string
 	Answer3   string
+	Answer4   string
+	Answer5   string
+	Answer6   string
+	Answer7   string
+	Answer8   string
+	Answer9   string
+	Seikai    string
 }
 
 type Game struct {
@@ -92,6 +99,12 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		B: 255,
 		A: 255,
 	}
+	seikainoiro := color.RGBA{
+		R: 225,
+		G: 0,
+		B: 0,
+		A: 255,
+	}
 	t := g.Questionlist[g.Questionnunvar]
 	q := t.Question
 	a := t.Answer
@@ -100,6 +113,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	q4 := t.Question4
 	a2 := t.Answer2
 	a3 := t.Answer3
+	a4 := t.Answer4
+	a5 := t.Answer5
+	a9 := t.Answer9
+	se := t.Seikai
 	screen.Fill(color.RGBA{
 		R: t.Color.R,
 		G: t.Color.G,
@@ -109,7 +126,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	text.Draw(screen, q, mPlus1pRegular_ttf, 0, 20, iro)
 	text.Draw(screen, q2, mPlus1pRegular_ttf, 0, 50, iro)
 	text.Draw(screen, q3, mPlus1pRegular_ttf, 0, 80, iro)
-	text.Draw(screen, q4, mPlus1pRegular_ttf, 0, 100, iro)
+	text.Draw(screen, q4, mPlus1pRegular_ttf, 0, 110, iro)
+	text.Draw(screen, se, mPlus1pRegular_ttf, 0, 110, seikainoiro)
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
 		text.Draw(screen, st, mPlus1pRegular_ttf, 0, 160, kotaenoiro)
@@ -121,10 +139,19 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			text.Draw(screen, "不正解", mPlus1pRegular_ttf, 0, 190, fuseikainoiro)
 		}
 		if st == a2 {
-			g.Questionnunvar = 0
+			g.Questionnunvar = 60
 		}
 		if st == a3 {
-			g.Questionnunvar = 12
+			g.Questionnunvar = 0
+		}
+		if st == a4 {
+			g.Questionnunvar = 3
+		}
+		if st == a9 {
+			g.Questionnunvar = 2
+		}
+		if st == a5 {
+			g.Questionnunvar = 9
 		}
 	}
 }
