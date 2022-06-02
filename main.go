@@ -49,6 +49,7 @@ type QAP struct {
 	Hinto     string
 	Question3 string
 	Question4 string
+	Question5 string
 	Answer2   string
 	Answer3   string
 	Answer4   string
@@ -111,10 +112,14 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	q2 := t.Question2
 	q3 := t.Question3
 	q4 := t.Question4
+	q5 := t.Question5
 	a2 := t.Answer2
 	a3 := t.Answer3
 	a4 := t.Answer4
 	a5 := t.Answer5
+	a6 := t.Answer6
+	a7 := t.Answer7
+	a8 := t.Answer8
 	a9 := t.Answer9
 	se := t.Seikai
 	screen.Fill(color.RGBA{
@@ -127,6 +132,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	text.Draw(screen, q2, mPlus1pRegular_ttf, 0, 50, iro)
 	text.Draw(screen, q3, mPlus1pRegular_ttf, 0, 80, iro)
 	text.Draw(screen, q4, mPlus1pRegular_ttf, 0, 110, iro)
+	text.Draw(screen, q5, mPlus1pRegular_ttf, 0, 140, iro)
 	text.Draw(screen, se, mPlus1pRegular_ttf, 0, 110, seikainoiro)
 	if len(g.keys) > 0 {
 		st := strings.TrimPrefix(g.keys[0].String(), "Digit")
@@ -152,6 +158,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		}
 		if st == a5 {
 			g.Questionnunvar = 9
+		}
+		if st == a6 {
+			g.Questionnunvar = 15
+		}
+		if st == a7 {
+			g.Questionnunvar = 21
+		}
+		if st == a8 {
+			g.Questionnunvar = 21
 		}
 	}
 }
